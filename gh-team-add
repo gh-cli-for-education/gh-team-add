@@ -2,12 +2,24 @@
 set -e
 
 help() {
-  printf "Set the environment variable GITHUB_ORG & GITHUB_TEAM
+  printf "
+1. Set the alias:
 
-    export GITHUB_ORG=\"your org\"
-    export GITHUB_TEAM=\"target team\"
+    cd:                            !gh config set current-org "$1" 2>/dev/null
+    pwd:                           !gh config get current-org
+   
+   Example:
+      ✗ gh pwd                   
+      ULL-ESIT-DMSI-1920
+2. Get the teams:
 
-list the names of the users you want to add to the target team
+        ✗ gh org-teams | jq '.name'
+        \"all\"
+        \"antonella-garcia-alu0101227610\"
+        \"casiano-rodriguez-leon-casiano\"
+        ...
+
+3. List the names of the users you want to add to the target team
 
   gh team-add [-t team ] member1 member2 member3 ...
 

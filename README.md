@@ -1,23 +1,41 @@
-# `gh add-team-member` GitHub CLI extension
+# `gh team-add` GitHub CLI extension
 
 [GitHub CLI](https://github.com/cli/cli) extension for bulk register members to a github team
 
 ## Installation
+
 ```
-gh extension install utamori/gh-add-team-member
+gh extension install gh-cli-for-education/gh-team-add
 ```
 
 ## Usage
 
-Set the environment variable `GH_ORG` & `GH_TEAM`
+```
+✗ gh team-add -h
 
-```
-export GH_ORG={your org}
-export GH_TEAM={target team}
-```
+1. Set the alias:
 
-list the names of the users you want to add to the target team
+    cd:                            !gh config set current-org  2>/dev/null
+    pwd:                           !gh config get current-org
+   
+   Example:
+      ✗ gh pwd                   
+      ULL-ESIT-DMSI-1920
+2. Get the teams:
 
-```
-gh add-team-member member1 member2 member3 ...
-```
+        ✗ gh org-teams | jq '.name'
+        all
+        antonella-garcia-alu0101227610
+        casiano-rodriguez-leon-casiano
+        Jaime-Simeón-Palomar-Blumenthal-alu0101228587
+        jaime-simeon-palomar-blumenthal-alu0101228587
+        JaimeSimeonPalomarBlumenthal
+        laura-manzini-alu0101531700
+        sergio-pitti-alu0101232812
+        teresaBonet
+
+3. List the names of the users you want to add to the target team
+
+  gh team-add [-t team ] member1 member2 member3 ...
+``` 
+
