@@ -1,0 +1,41 @@
+#!/bin/bash
+set -e
+
+help() {
+  printf "Set the environment variable GITHUB_ORG & GITHUB_TEAM
+
+    export GITHUB_ORG=\"your org\"
+    export GITHUB_TEAM=\"target team\"
+
+list the names of the users you want to add to the target team
+
+  gh team-add [-t team ] member1 member2 member3 ...
+
+"
+}
+
+case "$1" in
+  --team*|-t*)
+    if [[ "$1" != *=* ]]; then shift; fi
+    GITHUB_TEAM="${1#*=}"
+    shift;
+    ;;
+  --help|-h)
+    help
+    exit 0
+    ;;
+esac
+
+if [ -z "$GITHUB_ORG" ]
+then
+  GITHUB_ORG=$(gh pwd)
+fi
+
+echo "org is $GITHUB_ORG"
+echo "team is $GITHUB_TEAM"
+
+for N in "${@}" ;
+do
+  echo "Adding ${N} to ${GITHUB_TEAM}"
+  gh api -X PUT /orgs/$GITHUB_ORG/teams/$GITHUB_TEAM/memberships/${N} -F role='member'
+done
